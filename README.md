@@ -26,5 +26,6 @@ $$
 [!htbp]  
 **Example Image**: f583c3c21be225bb988c055067f547a.jpg
 
+![](f583c3c21be225bb988c055067f547a.png)
 
 
