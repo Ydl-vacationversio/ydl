@@ -138,6 +138,6 @@ Muti-Head Attention是由多个Self-Attention组成，
 
 ​		第二个Muti-Head Attention是使用Encoder输出的信息结合上一个Decoder输出的矩阵计算。
 
-​		Softmax来预测下一个单词
+​		`Softmax`来预测下一个单词
 
 <img src="README.assets/image-20240820162927306.png" alt="image-20240820162927306" style="zoom: 33%;" /><img src="README.assets/image-20240820162941029.png" alt="image-20240820162941029" style="zoom: 33%;" />
