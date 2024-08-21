@@ -67,10 +67,22 @@ $$
 
 <img src="README.assets/2.png" style="zoom:67%;" />
 		 >1.首先，获取输入句子的每一个单词的表示向量 X，X由单词的Embedding（Embedding就是从原始数据提取出来的Feature） 和单词位置的 Embedding 相加得到。
-	<img src="3.png" style="zoom:50%;" />
-		2.将得到的单词表示向量矩阵传入 Encoder 中，经过 6 个 Encoder block 后可以得到句子所有单词的编码信息矩阵C。
+
+<center>	
+
+</center>
+
+<img src="3.png" style="zoom:50%;" />
+
+
+​		2.将得到的单词表示向量矩阵传入 Encoder 中，经过 6 个 Encoder block 后可以得到句子所有单词的编码信息矩阵C。
+
+<center>
 
 <img src="4.png" style="zoom:67%;" />
+
+
+
 ​		3.将 Encoder 输出的编码信息矩阵 C传递到 Decoder 中，Decoder 依次会根据当前翻译过的单词 1~ i 翻译下一个单词 i+1，如下图所示。在使用的过程中，翻译到单词 i+1 的时候需要通过 **Mask** (掩盖) 操作遮盖住 i+1 之后的单词。
 
 ### 输入
@@ -139,17 +151,17 @@ Muti-Head Attention是由多个Self-Attention组成，
 
 ​		第二个Muti-Head Attention是使用Encoder输出的信息结合上一个Decoder输出的矩阵计算。
 
-​		`Softmax`来预测下一个单词
+​		Softmax来预测下一个单词.
 
-<img src="README.assets/image-20240820162927306.png" alt="image-20240820162927306" style="zoom: 33%;" /><img src="README.assets/image-20240820162941029.png" alt="image-20240820162941029" style="zoom: 33%;" />
+<center>
 
-
+<img src="README.assets/image-20240820162927306.png" alt="image-20240820162927306" style="zoom: 33%;" /><img src="README.assets/image-20240820162941029.png" alt="image-20240820162941029" style="zoom: 33%;" /></center>
 
 [可视化实现过程](https://poloclub.github.io/transformer-explainer/)
 
 ## 大模型训练
 
-​		大模型训练步骤一般分为**预训练**，**微调**。
+​		**预训练**（Pre-training）、**SFT**（有监督的微调，Supervised-Finetuning）以及**RLHF**（基于人类反馈的强化学习，Reinforcement Learning from Human Feedback）
 
 ## 预训练
 
@@ -186,26 +198,53 @@ Muti-Head Attention是由多个Self-Attention组成，
 
 >[微调实例](https://blog.csdn.net/sunyuhua_keyboard/article/details/140096441)
 
-**过程**
+### **RLHF**：
 
-大模型预训练：在通用大模型进行预训练
+​		这一步骤可以理解为在前面的学习基础上，引入了人类的反馈来进一步优化模型。
 
-准备特定数据集：在模型要进行精通的领域准备数据集，对数据集进行预处理以及标注。
+# 计划
 
-数据标注：例如模型情感分析
+学习数据微调方法。
 
-| 句子                       | 情感标签 |
-| -------------------------- | -------- |
-| 这部电影真是太棒了！       | 积极     |
-| 我对这个产品非常失望。     | 消极     |
-| 服务还可以，但食物不太好。 | 中性     |
+了解现阶段开源大模型特点，构架等。
+
+学习数据集生成收集技巧。
+
+查阅相关论文，了解工作流程。
 
 
 
-## Reward Modeling
 
-奖励建模是为了让大模型更有效地遵循人类期望的行为，在强化学习环境中，智能体通过尝试不同的行为获得环境给予的奖励信号，以此来调整自己的行为策略以最大化累积奖励。
 
-> RLHF:Reinforcement Learning from Human Feedback,是一种结合了强化学习和人类反馈的机器学习方法，主要用于训练大模型以执行复杂的任务，尤其是当这些任务难以通过传统的奖励函数来精确定义时.
->
-> RLHF核心是对以及预训练的模型利用奖励模型进行继续强化学习，奖励模型是通过
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
