@@ -43,7 +43,7 @@ $$
 # 模型架构
 ​		简而言之大模型是通过对输入提示词（prompt）的处理从而生成结果（completion）。对于语言模型来说，最初的起源来自于Transformer模型，这个模型是编码-解码端 （Encoder-Decoder）的架构。但是当前对于语言模型的分类，将语言模型分为三个类型：编码端（Encoder-Only），解码端（Decoder-Only）和编码-解码端（Encoder-Decoder）
 
-  		其中，分词（tokenization）和模型构架（基本为Transformer结构）为主要讨论内容。
+其中，分词（tokenization）和模型构架（基本为Transformer结构）为主要讨论内容。
 
 ### 分词
 ​		NPL中，token指文本序列中最小一个单元，一个序列一般被分为数个tokens进行处理
@@ -57,17 +57,18 @@ $$
 ## Transformer
 ### 整体结构
 
->https://zhuanlan.zhihu.com/p/338817680
+>[参考](https://zhuanlan.zhihu.com/p/338817680)
 
 ​		首先介绍 Transformer 的整体结构，下图是 Transformer 用于中英文翻译的整体结构
 
 <img src="README.assets/image-20240820163150633.png" alt="image-20240820163150633" style="zoom:67%;" />
 
 ​		由 **Encoder** 和 **Decoder** 两个部分组成，Encoder 和 Decoder 都包含 **6** 个 block。Transformer 的工作流程大体如下：
-​	<img src="2.png" style="zoom:67%;" />
-​		1.首先，获取输入句子的每一个单词的表示向量 X，X由单词的 >Embedding（Embedding就是从原始数据提取出来的Feature） 和单词位置的 Embedding 相加得到。
-​	<img src="3.png" style="zoom:50%;" />
-​		2.将得到的单词表示向量矩阵传入 Encoder 中，经过 6 个 Encoder block 后可以得到句子所有单词的编码信息矩阵C。
+
+<img src="README.assets/2.png" style="zoom:67%;" />
+		 >1.首先，获取输入句子的每一个单词的表示向量 X，X由单词的Embedding（Embedding就是从原始数据提取出来的Feature） 和单词位置的 Embedding 相加得到。
+	<img src="3.png" style="zoom:50%;" />
+		2.将得到的单词表示向量矩阵传入 Encoder 中，经过 6 个 Encoder block 后可以得到句子所有单词的编码信息矩阵C。
 
 <img src="4.png" style="zoom:67%;" />
 ​		3.将 Encoder 输出的编码信息矩阵 C传递到 Decoder 中，Decoder 依次会根据当前翻译过的单词 1~ i 翻译下一个单词 i+1，如下图所示。在使用的过程中，翻译到单词 i+1 的时候需要通过 **Mask** (掩盖) 操作遮盖住 i+1 之后的单词。
@@ -94,7 +95,7 @@ Self-Attention（自注意力机制）是Transformer中的重点机制，上图�
 
 >查询（Q）： 代表模型当前关注的项目。 在序列中，查询就像对特定元素提出问题。 键（K）： 代表序列中模型可能关注的所有项目。 键是查询用来比较的对象，以确定应该给予多少注意力。 值（V）： 每个键都与一个值相关联。 一旦模型确定了哪些键是重要的（基于查询），就会使用相应的值来构建输出.
 >
->QKV介绍：https://blog.csdn.net/2301_79342058/article/details/134820283
+>[QKV介绍](https://blog.csdn.net/2301_79342058/article/details/134820283)
 
 <img src="https://pic2.zhimg.com/v2-9699a37b96c2b62d22b312b5e1863acd_r.jpg" alt="img" style="zoom:67%;" />
 
@@ -116,11 +117,11 @@ Muti-Head Attention是由多个Self-Attention组成，
 
 <img src="https://pic3.zhimg.com/v2-a4b35db50f882522ee52f61ddd411a5a_r.jpg" alt="img" style="zoom:80%;" />
 
-​		**Add**指 **X**+MultiHeadAttention(**X**)，是一种残差连接，通常用于解决多层网络训练的问题，使模型卷的更深，因为模型要重复N次，Add操作充分考虑了模型复杂度，抵抗模型深度所导致输入信号的衰减，可以让网络只关注当前差异的部分。**Norm**指 Layer Normalization，通常用于 RNN 结构，Layer Normalization 会将每一层神经元的输入都转成均值方差都一样的，这样可以加快收敛。
+​		**Add**指 **X**+MultiHeadAttention(**X**)，是一种残差连接，通常用于解决多层网络训练的问题，使模型卷的更深，因为模型要重复N次，Add操作充分考虑了模型复杂度，抵抗模型深度所导致输入信号的衰减，可以让网络只关注当前差异的部分。**Norm**指 Layer Normalization，通常用于 RNN 结构，Layer Normalization 会将每一层神经元的输入都转成均值方差都一样的，这样可以加快收敛。***二者结合使模型训练更加稳定***
+
+**Feedforward**是一个前馈神经网络，引入**ReLu**激活函数，增加模型的非线性。这使得模型能够***学习到更加复杂的模式和关系***。
 
 ### Encoder组成
-
-
 
 ​		上述几个单元组合即组成一个Encoder block，多个Encoder block叠加组成Encoder，输入文字矩阵经过Encoder block后输出一个编码信息矩阵，后续用于Decoder中。
 
@@ -141,3 +142,70 @@ Muti-Head Attention是由多个Self-Attention组成，
 ​		`Softmax`来预测下一个单词
 
 <img src="README.assets/image-20240820162927306.png" alt="image-20240820162927306" style="zoom: 33%;" /><img src="README.assets/image-20240820162941029.png" alt="image-20240820162941029" style="zoom: 33%;" />
+
+
+
+[可视化实现过程](https://poloclub.github.io/transformer-explainer/)
+
+## 大模型训练
+
+​		大模型训练步骤一般分为**预训练**，**微调**。
+
+## 预训练
+
+​		预训练是开发大模型算力需求成本最高的阶段，开发模型的99%的算力消耗在此阶段，训练数据集一般以亿（billion）计算。下面说明以Transformer架构进行预训练的具体例子，这里以BERT（Bidirectional Encoder Representations from Transformers）模型为例。
+
+> BERT（Bidirectional Encoder Representations from Transformers）:BERT 是一种基于 Transformer 架构的双向语言表示模型。它通过对海量文本数据的预训练，学习得到丰富的上下文表示，然后在下游任务上进行微调，实现极高的性能。与传统的单向语言模型相比，BERT 的核心优势在于：
+>
+> **双向性**：BERT通过使用Transformer的编码器结构，BERT 能够同时从文本的左右两个方向学习上下文信息，使模型能够更好地理解句子中的每个词的语义。
+>
+> **预训练与微调**：通过预训练任务（如 Masked Language Model 和 Next Sentence Prediction），BERT 可以在多种下游任务上进行快速微调。
+>
+> 结构：BERT 的结构基于 Transformer 编码器（Encoder）部分。完整的 BERT 模型包括一个词嵌入层、多层的 Transformer 编码器，以及用于特定任务的输出层
+>
+> <img src="README.assets/image-20240821102310242.png" alt="image-20240821102310242" style="zoom: 50%;" />
+
+**数据收集**：使用了英文维基百科（约2500万篇文章，1100亿个词）和书籍语料库BookCorpus（约7000本书，3800万个词）。
+
+**数据预处理**：对数据进行**分词**和**编码**。
+
+**掩码语言模型（MLM）**：随机选择15%的tokens进行掩码，其中80%的时间用`[MASK]`token替换，10%的时间用随机token替换，10%的时间保持不变。
+
+**下一句预测**：在预训练数据中，随机选择50%的句子对作为正样本（实际上是连续的句子），其余50%作为负样本（不连续的句子）。
+
+**训练策略制定**：学习率调度
+
+- **预热**：在前10,000步线性增加学习率。
+- **衰减策略**：使用线性衰减策略。
+
+- **梯度累积**：如果显存不足，可以累积梯度。
+
+## SFT（Supervised Finetuning）监督微调
+
+​		监督微调（Supervised Fine-Tuning, SFT）是对已经预训练的模型进行特定任务的训练，以提高其在该任务上的表现。预训练模型通常在大量通用数据上进行训练，学到广泛的语言知识和特征。在SFT过程中，利用特定任务的数据，对模型进行进一步调整，使其更适合该任务。
+
+>[微调实例](https://blog.csdn.net/sunyuhua_keyboard/article/details/140096441)
+
+**过程**
+
+大模型预训练：在通用大模型进行预训练
+
+准备特定数据集：在模型要进行精通的领域准备数据集，对数据集进行预处理以及标注。
+
+数据标注：例如模型情感分析
+
+| 句子                       | 情感标签 |
+| -------------------------- | -------- |
+| 这部电影真是太棒了！       | 积极     |
+| 我对这个产品非常失望。     | 消极     |
+| 服务还可以，但食物不太好。 | 中性     |
+
+
+
+## Reward Modeling
+
+奖励建模是为了让大模型更有效地遵循人类期望的行为，在强化学习环境中，智能体通过尝试不同的行为获得环境给予的奖励信号，以此来调整自己的行为策略以最大化累积奖励。
+
+> RLHF:Reinforcement Learning from Human Feedback,是一种结合了强化学习和人类反馈的机器学习方法，主要用于训练大模型以执行复杂的任务，尤其是当这些任务难以通过传统的奖励函数来精确定义时.
+>
+> RLHF核心是对以及预训练的模型利用奖励模型进行继续强化学习，奖励模型是通过
