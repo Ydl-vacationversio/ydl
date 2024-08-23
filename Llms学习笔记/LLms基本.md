@@ -69,10 +69,9 @@ $$
 		 >1.首先，获取输入句子的每一个单词的表示向量 X，X由单词的Embedding（Embedding就是从原始数据提取出来的Feature） 和单词位置的 Embedding 相加得到。
 
 <center>	
-
-</center>
-
 <img src="3.png" style="zoom:50%;" />
+
+
 
 
 ​		2.将得到的单词表示向量矩阵传入 Encoder 中，经过 6 个 Encoder block 后可以得到句子所有单词的编码信息矩阵C。
@@ -154,8 +153,9 @@ Muti-Head Attention是由多个Self-Attention组成，
 ​		Softmax来预测下一个单词.
 
 <center>
+<img src="README.assets/image-20240820162927306.png" alt="image-20240820162927306" style="zoom: 33%;" /><img src="README.assets/image-20240820162941029.png" alt="image-20240820162941029" style="zoom: 33%;" />
 
-<img src="README.assets/image-20240820162927306.png" alt="image-20240820162927306" style="zoom: 33%;" /><img src="README.assets/image-20240820162941029.png" alt="image-20240820162941029" style="zoom: 33%;" /></center>
+
 
 [可视化实现过程](https://poloclub.github.io/transformer-explainer/)
 
