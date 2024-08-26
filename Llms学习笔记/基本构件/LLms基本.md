@@ -202,33 +202,71 @@ Muti-Head Attention是由多个Self-Attention组成，
 
 ​		这一步骤可以理解为在前面的学习基础上，引入了人类的反馈来进一步优化模型。
 
-# 计划
+## langchain
 
-学习数据微调方法。
+[官方链接](https://python.langchain.com/v0.2/docs/introduction/) [参考](https://liaokong.gitbook.io/llm-kai-fa-jiao-cheng)
 
-了解现阶段开源大模型特点，构架等。
+LangChain 是一个用于开发由语言模型驱动的应用程序的框架。他主要拥有 2 个能力：
 
-学习数据集生成收集技巧。
+​		**可以将 LLM 模型与外部数据源进行连接**
 
-查阅相关论文，了解工作流程。
+​		**允许与 LLM 模型进行交互**
+
+它的基础功能有：
+
+1.调用：
+
+​		支持多种模型接口，比如 OpenAI、Hugging Face、AzureOpenAI ...
+
+​		Fake LLM，用于测试
+
+​		缓存的支持，比如 in-mem（内存）、SQLite、Redis、SQL
+
+​		用量记录
+
+​		支持流模式（就是一个字一个字的返回，类似打字效果）
+
+2.Prompt管理，支持各种自定义模板
+
+3.对索引的支持：
+
+​		文档分割器
+
+​		向量化
+
+​		对接向量存储与搜索，比如 Chroma、Pinecone、Qdrand
+
+langchain中的重要概念：
+
+- **Components**
+
+-LLM Wrapper：包装器，允许我们连接到大语言模型，例如GPT-4或HuggingFace的模型。
+
+-Prompt Templates：提示模板，使我们不必对文本进行[硬编码](https://zhida.zhihu.com/search?q=硬编码)，而文本是LLM的输入。
+
+-Indexes for relevant information retrieval：相关内容的索引，允许我们为LLM提取相关信息。
+
+- **Chains**
+
+允许我们将多个组件组合在一起，以解决一个特定的任务，并建立一个完整的LLM应用程序。
+
+- **Agents**
+
+允许LLM与外部API互动。
 
 
 
+执行流程
 
+![image-20240825190414257](LLms基本.assets/image-20240825190414257.png)
 
+用户提出一个问题，这个问题被发送给大模型，同时这个问题也会在个人数据库所组成的向量库中进行搜索，在获得搜索反馈之后将反馈输送给大模型，大模型根据自身数据库以及向量搜索信息提供一个答案或者一个行动。
 
+用户的数据库（文件）被切成小块，把这些小块存储在一个矢量数据库中，这些块被存储为embedding，意味着它们是文本的矢量表示。
 
+更加具体的流程如下：
 
-
-
-
-
-
-
-
-
-
-
+![image-20240825190956822](LLms基本.assets/image-20240825190956822.png)
 
 
 
