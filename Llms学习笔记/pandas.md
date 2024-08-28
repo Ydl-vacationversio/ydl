@@ -1,4 +1,4 @@
-# pandas库一些基础功能
+# andas库一些基础功能
 
 安装pandas
 
